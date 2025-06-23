@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Drive File Links</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary-color: #1a73e8;
+      --bg-color: #000000;
+      --card-bg: #fff1f1;
+      
+      --text-color: #000000;
+    }
+
+    body {
+      background: url("https://static.vecteezy.com/system/resources/previews/031/974/724/non_2x/snow-blue-glitter-lights-screen-blur-light-reflections-loop-bokeh-blue-particles-blur-lights-background-texture-smooth-motion-graphics-bright-softness-modern-decoration-abstract-space-illustration-free-photo.jpg")no-repeat center center;
+      background-size: cover;
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+    }
+
+    .search-bar {
+      max-width: 600px;
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .file-list {
+      max-width: 700px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .file-item {
+      background-color: var(--card-bg);
+      padding: 16px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .file-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .file-name {
+      font-weight: 500;
+      flex: 1;
+      margin-right: 20px;
+      word-break: break-word;
+    }
+
+    .file-link a {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+
+    .file-link a:hover {
+      background-color: #135bc1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mar Thoma Kristheeya Keerthanangal</h1>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search by file name...">
+  </div>
+
+  <div class="file-list" id="fileList"></div>
+
+  <script>
+    const files = [
+      { name: "401_നിന്‍ സന്നിധിയില്‍.pptx", link: "https://docs.google.com/presentation/d/1Tv_3bElzAGmb3HD8vSZp58g_mOymwBik/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "402_Yeshuve ninte roopameeyente.pptx", link: "https://docs.google.com/presentation/d/1TG8xZ6D_K_Ji1v3y-gWIqfNisQ203U82/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "403_നിൻ സന്നിധിമതി.pptx", link: "https://docs.google.com/presentation/d/1AUc7wacP0SogyXs8dEU2si1avKZr-Fdc/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "404_എൻ പ്രിയനേശുവിൽ.pptx", link: "https://docs.google.com/presentation/d/1W-ATWTJSX4ynXJzgyYU17QuwWvGczFuR/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "405_ഞാൻ കർത്താവിന്നായ്.pptx", link: "https://docs.google.com/presentation/d/1Luf63yVaMdzbgi3F6bZ5zEKpJ-Q4_5V6/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "406_ദൈവത്തിൻ പൈതലേ.pptx", link: "https://docs.google.com/presentation/d/1Q_3Y2mHaEqkWt0ylVsJEi6GBJn6bupWA/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "407_Sabhakkekaadishtanam.pptx", link: "https://docs.google.com/presentation/d/1KzBtkH01QF41RV42OxUIGQVoyOiYE5nW/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "408_Yeshuvin thirusabhaye.pptx", link: "https://docs.google.com/presentation/d/1E3EfAt60_oFDbjI6uBme1Q5fuaJwm-MU/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "409_എന്‍ ആശ യേശുവില്‍.pptx", link: "https://docs.google.com/presentation/d/1rrhl8F-eXulFeELZ8qWqns-TYvCUTTgn/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "410_തൻ നിത്യ സ്നേഹത്താൽ.pptx", link: "https://docs.google.com/presentation/d/1HTrBIanTedzDHi2_O_JVO7q5LklhytfQ/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "411_എന്‍റെ ജീവനാമേശുവേ.pptx", link: "https://docs.google.com/presentation/d/1U-fwdKAgBmw0lUQpXUtdoVly85DK7YqR/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "412_ആശ്വാസമേ എനിക്കേറെ.pptx", link: "https://docs.google.com/presentation/d/1_lFWZRoBS1jvHDSOCPS967bBt_lmSA8B/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "413_ദൈവത്തിൽ ഞാൻ.pptx", link: "https://docs.google.com/presentation/d/1l6kY8Ka2MrTQ_1PXn7VRSDJaowPCyMQa/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "414_പരപരമേശ വരമരുളീശാ.pptx", link: "https://docs.google.com/presentation/d/10La8POs_GJsjo1snvzkCYa-qg07moMlU/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "415_Yeshuve thirunaamamethra madhuram.pptx", link: "https://docs.google.com/presentation/d/11gV8OfnrfQrha7dEd92RUYg8MBniOz-k/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "416_എന്നെ രക്ഷിപ്പാൻ.pptx", link: "https://docs.google.com/presentation/d/1dJonFnQmqcRWYWlwJx_rNwTgRwgVIsJr/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "417_ദൈവമേ ഈ ആണ്ടിനെ.pptx", link: "https://docs.google.com/presentation/d/1GMXL-eUBWbbopHh6vzsN-v6zNlWQp9kV/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "418_ഇന്നേരം യേശുദേവനേ.pptx", link: "https://docs.google.com/presentation/d/1AxcipjpOtOaKYX97S1cyvhVy87PfRfBi/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "419_ഇന്നയോളം തുണച്ചോനെ.pptx", link: "https://docs.google.com/presentation/d/1NaDyi7MwgdUpOG2soH0droUoNhYnvdJ8/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "420_പുതു വത്സരത്തിൻ.pptx", link: "https://docs.google.com/presentation/d/1DSO7tXEI_O8Vj3SGSuhy3Ci_XduhOPfn/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "421_ഇന്നു നമുക്കേകശിശു.pptx", link: "https://docs.google.com/presentation/d/1ZG-al1e3JU34zWywdQ918tqUcW0sCgIw/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "422_Munnam parasuthan.pptx", link: "https://docs.google.com/presentation/d/1SDYsWQFGdIc_FXYGwhm3bXiNTBjZhd2L/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "423_Maattin thozhuthil.pptx", link: "https://docs.google.com/presentation/d/1Ju_rL86Z-1BajIZqaXFI9VJiT8ZIgS7v/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "424_കർത്തനിൽ ആർത്തു.pptx", link: "https://docs.google.com/presentation/d/1dBRQFX17hIk1iBS6TL-UwGcIWQGd8NBl/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "425_ക്രിസ്തുയേശുവിൻ സ്വാതന്ത്ര്യം.pptx", link: "https://docs.google.com/presentation/d/1cKfRsxtXtgcL0xM57Yth7qg0ISQ80Dd3/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "426_ക്രിസ്തുയേശു ശിഷ്യരുടെ.pptx", link: "https://docs.google.com/presentation/d/1qua6OBuGd36IsB6l5JG4xHZCXL69GK71/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "427_നിത്യനായ യഹോവയെ.pptx", link: "https://docs.google.com/presentation/d/1gB8sJTu2H0fqMu99K-nZNzfC6JfIXEtg/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "428_Rakshakante divyasnehathaal.pptx", link: "https://docs.google.com/presentation/d/1B6ozYFJLihLFZ0MpkjybTJ6HbXgngD2d/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "429_Varika parapane ee.pptx", link: "https://docs.google.com/presentation/d/1gEpfANqv2tkIGQ-VGuFJSCyGH3fWj0de/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "430_അളവില്ലാദാനങ്ങൾ.ppt", link: "https://docs.google.com/presentation/d/1yzI0RS8yIfhR8KOhsNdZS5pHfaVd7xRm/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "431_എന്‍ മനമേ ദിനം വാഴ്ത്തുക.ppt", link: "https://docs.google.com/presentation/d/1guJTUgYlLtta5h1MN-IvDkHub0oWN6Y3/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "432_എന്‍ കര്‍ത്താവേ നിന്‍കരങ്ങള്‍ നിര്‍മ്മിച്ച.pptx", link: "https://docs.google.com/presentation/d/1Yl8mlCJnO-zM4AvhUAb3_-KpOiFwIxM3/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "433_Sarvathin raajanaam.pptx", link: "https://docs.google.com/presentation/d/1N9VQT6Rxgpr4Xrie_YydymfB7eloWdY9/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "434_നന്ദിയാലെന്നുള്ളം തിങ്ങുകയാൽ.ppt", link: "https://docs.google.com/presentation/d/1f6Gs1HuK14a8d93Os1UR9bzLwy1HSjwZ/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "435_നന്ദിയോടെ ഞാൻ സ്തുതി പാടിടും.pptx", link: "https://docs.google.com/presentation/d/1GQxxuVZzC2m1Pj5kVmwmnAB_psf8tP7M/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "436_നിൻ ദാനം ഞാൻ അനുഭവിച്ചു.ppt", link: "https://docs.google.com/presentation/d/1cp3W9SGPDaaC3eafivwl5T6h9Ub-JgN2/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "437_ഉയരുന്നെന്നുള്ളില്‍ സ്തോത്രത്തിന്‍ ഗാനം.pptx", link: "https://docs.google.com/presentation/d/1GnWJ5SSl9YOAuKuwpo8iqSWTz2l6zu4w/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "438_ഓടിക്കൂടിന്‍ യേശുവോടു.pptx", link: "https://docs.google.com/presentation/d/1yLNinRcRFDEBt6KXwh-xZryNboQ2Tb7m/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "439_ദൈവകുഞ്ഞടിതാ.pptx", link: "https://docs.google.com/presentation/d/1BtytZsGuV2kDcLeGnjuWcq4W2ixCGxqP/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "440_നമ്മുടെ കര്‍ത്താവാം  യേശു.pptx", link: "https://docs.google.com/presentation/d/17IhTJ3O6COYveUkLTDXcofJkWjPuPdJ4/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "441_കാലവറി ക്രൂശില്‍ താതാ ഞങ്ങളെ.pptx", link: "https://docs.google.com/presentation/d/17ezfvhVilKmwKtcU9cM2XTGuP73n5NRH/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "442_ക്രൂശിതനാം ക്രിസ്തുവേ.pptx", link: "https://docs.google.com/presentation/d/1mpFRM6YWO9Cl8TYjk4mRb8cmmHEmIOl5/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "443_Halleluyya uyritheshu.pptx", link: "https://docs.google.com/presentation/d/1ZwlnKCcOp1Ro19QAyAleXrtWyzAMM57F/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "444_അദ്ധ്വാനിക്കുന്ന ഭാരവാഹികളെ.pptx", link: "https://docs.google.com/presentation/d/1q36WVNLgLr46wmSm_zjBFRAI-1qZ6Ubz/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "445_ഇന്നു നീ ഒരിക്കൽ കുടെ.ppt", link: "https://docs.google.com/presentation/d/1dmGntINq2ry-Ad29bSmTRqNspAil2N-m/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "446_Maaridaatha yeshunadhan.pptx", link: "https://docs.google.com/presentation/d/1YXC3NpBghePYdFb47aaT43nQie_NTRz5/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "447_Shudhaathmaave vannenullil.pptx", link: "https://docs.google.com/presentation/d/1_zts8fNLLJ1e0DD47VOLY0saVrPnE7g5/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "448_ദൈവത്തിന്‍റെ സുവിശേഷം.pptx", link: "https://docs.google.com/presentation/d/1PaXp8_FfjVvUcqDDd3ywazZZQDtTFXAp/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "449_ദൈവത്തിന്‍ പുത്രനാം ക്രിസ്തേ ശുവേ.pptx", link: "https://docs.google.com/presentation/d/1x7R6NILs7_LeUt8jqIcxaO8KjgNa2FqI/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+      { name: "450_Maanasamodaka madhurya vachanam.pptx", link: "https://docs.google.com/presentation/d/1XnewMJiey22gN9T4W3sUF2l-APbmLIg_/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+    ];
+
+    const fileList = document.getElementById("fileList");
+    const searchInput = document.getElementById("searchInput");
+
+    function renderFiles(filter = "") {
+      fileList.innerHTML = "";
+      const filtered = files.filter(file => file.name.toLowerCase().includes(filter.toLowerCase()));
+      filtered.forEach(file => {
+        const item = document.createElement("div");
+        item.className = "file-item";
+        item.innerHTML = `
+          <span class="file-name">${file.name}</span>
+          <span class="file-link"><a href="${file.link}" target="_blank">Open</a></span>
+        `;
+        fileList.appendChild(item);
+      });
+    }
+
+    searchInput.addEventListener("input", () => {
+      renderFiles(searchInput.value);
+    });
+
+    // Initial render
+    renderFiles();
+  </script>
+</body>
+</html>
