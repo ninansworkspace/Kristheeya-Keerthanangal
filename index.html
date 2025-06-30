@@ -3,174 +3,208 @@
 <head>
   <meta charset="UTF-8" />
   <title>Kristheeya Keerthanangal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
   <style>
     :root {
-      --primary-color: #3b5998;
-      --card-bg: rgba(255, 255, 255, 0.9);
-      --text-color: #111;
+      --primary: #4a148c;
+      --accent: #6f42c1;
+      --bg-light: linear-gradient(145deg, #eae8ff, #ffffff);
+      --bg-card: linear-gradient(135deg, #ffffffcc, #f5f5ffd9);
     }
 
     body {
-      margin: 0;
-      padding: 20px;
       font-family: 'Poppins', sans-serif;
-      color: var(--text-color);
-      background: url("https://wallpapers.com/images/hd/pink-and-blue-abstract-painting-d6jrj2ymdyks4koi.jpg") no-repeat center center fixed;
-      background-size: cover;
-      position: relative;
+      font-size: 17px;
+      line-height: 1.6;
+      margin: 0;
+      padding-top: 70px;
+      background: var(--bg-light);
+      color: #1a1a1a;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(6px);
-      z-index: -1;
+    .navbar {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
-    h1 {
-      text-align: center;
-      color: var(--primary-color);
-      font-weight: 600;
-      margin-bottom: 30px;
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--primary) !important;
     }
 
-    .search-bar {
-      max-width: 600px;
-      margin: 0 auto 25px;
-    }
-
-    .search-bar input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .file-list {
-      max-width: 800px;
-      margin: auto;
+    .hero {
+      background: url('https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      height: 280px;
       display: flex;
-      flex-direction: column;
-      gap: 15px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
     }
 
-    .file-item {
-      background-color: var(--card-bg);
-      padding: 16px 20px;
-      border-radius: 10px;
-      border: 1px solid black;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
+    .main-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(4px);
+      border-radius: 16px;
+      border: 1px solid #ddd;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .search-input {
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+
+    .song-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      padding: 1.2rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      transition: transform 0.2s ease, border-color 0.3s ease;
+      transition: all 0.3s ease;
     }
 
-    .file-item:hover {
-      transform: scale(1.01);
-      border-color: #1a73e8;
+    .song-card:hover {
+      transform: scale(1.02);
+      background-color: #f8f9fa;
     }
 
-    .file-name {
-      font-weight: 500;
-      font-size: 1rem;
-      flex: 1 1 70%;
-      word-break: break-word;
+    .song-title {
+      font-weight: 600;
+      font-size: 1.05rem;
     }
 
-    .file-link a {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 8px 14px;
-      border-radius: 6px;
+    .song-link a {
       text-decoration: none;
-      font-size: 0.9rem;
-      transition: background 0.3s ease;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
     }
 
-    .file-link a:hover {
-      background-color: #2d4373;
+    .song-link a:hover {
+      text-decoration: underline;
     }
 
-    .pagination {
+    .pagination-controls {
+      margin-top: 2rem;
       text-align: center;
-      margin-top: 30px;
     }
 
-    .pagination button {
-      margin: 0 5px;
-      padding: 10px 14px;
-      font-size: 14px;
-      border: none;
-      border-radius: 6px;
-      background-color: var(--primary-color);
-      color: white;
-      cursor: pointer;
-    }
-
-    .pagination button:disabled {
-      background-color: #999;
-      cursor: not-allowed;
-    }
-
-    #pageInfo {
+    .next-link {
       display: inline-block;
-      margin: 0 10px;
-      font-weight: 500;
+      color: var(--primary);
+      margin-top: 1.5rem;
+      font-weight: 600;
+      font-size: 1rem;
     }
-    .next{
-  background: rgba(13, 0, 255, 0.85);
-  color: #ffffff;
-  border: none;
-  padding: 10px 16px;
-  margin: 0 5px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: 0.2s ease;
 
-}
+    footer {
+      margin-top: 4rem;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
 
-    @media (max-width: 600px) {
-      .file-item {
+    @media (max-width: 576px) {
+      .song-card {
         flex-direction: column;
         align-items: flex-start;
-      }
-      
-      .file-link a {
-        width: 100%;
-        text-align: center;
-        margin-top: 10px;
+        gap: 10px;
       }
     }
   </style>
 </head>
+
 <body>
-  <h1>Mar Thoma Kristheeya Keerthanangal</h1>
 
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search by song title..." />
+<!-- NAVBAR -->
+<nav class="navbar fixed-top navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#">🎶 Kristheeya Keerthanangal</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://ninansworkspace.github.io/MaramonConventionPPTSongs-/">Maramon Convention</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://ninansworkspace.github.io/MarThomaSongs/">Mar Thoma Tracks</a>
+        </li>
+      </ul>
+    </div>
   </div>
+</nav>
 
-  <div class="file-list" id="fileList"></div>
+<!-- HERO -->
+<section class="hero">
+  <h1>Kristheeya Keerthanangal</h1>
+</section>
 
-  <div class="pagination">
-    <button id="prevBtn">Previous</button>
-    <span id="pageInfo"></span>
-    <button id="nextBtn">Next</button>
-    <a href="https://ninansworkspace.github.io/MaramonConventionPPTSongs-/" target="_blank" class="next">Maramon Convention Songs PPT ➜</a>
+<!-- MAIN CONTENT -->
+<div class="container">
+  <div class="main-card">
+
+    <!-- SEARCH BAR -->
+    <div class="search-input text-center">
+      <input type="text" id="searchInput" class="form-control" placeholder="Search by song title..." />
+    </div>
+
+    <!-- SONG LIST -->
+    <div class="d-flex flex-column gap-3" id="fileList"></div>
+
+    <!-- PAGINATION -->
+    <div class="pagination-controls">
+      <button id="prevBtn" class="btn btn-outline-primary me-2">Previous</button>
+      <span id="pageInfo" class="fw-semibold"></span>
+      <button id="nextBtn" class="btn btn-outline-primary ms-2">Next</button>
+    </div>
+
+    <!-- EXTERNAL LINK -->
+    <div class="text-center">
+      <a href="https://ninansworkspace.github.io/MaramonConventionPPTSongs-/" class="next-link" target="_blank">➜ Maramon Convention PPT Songs</a>
+    </div>
+
   </div>
+</div>
 
-  <script>
-    const files = [
-      { name: "001_അതിരാവിലെ.pptx", link: "https://docs.google.com/presentation/d/1s0yyDA1aMdqgsXH3_w9Hy0_4rYoVqq4l/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
+<!-- FOOTER -->
+<footer>
+  © 2025 Bethel Mar Thoma Church. All rights reserved.
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JS for Songs -->
+<script>
+  const files = [
+    { name: "001_അതിരാവിലെ.pptx", link: "https://docs.google.com/presentation/d/1s0yyDA1aMdqgsXH3_w9Hy0_4rYoVqq4l/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
       { name: "002_പരനേ തിരുമുഖശോഭ.pptx", link: "https://docs.google.com/presentation/d/17f0MQ-fZIDHlVgZNzjTZWDb0vs3osc_Y/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
       { name: "003_Vandanam ponneshu nadha.pptx", link: "https://docs.google.com/presentation/d/1_C8-7KOga6WZ7iGBgrcNtazi0k3Q9uz-/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
       { name: "004_ഉണരുകനീയെൻ.pptx", link: "https://docs.google.com/presentation/d/1oB3hOabJ9FrztBGyEbVXzGmHtKAHob2H/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
@@ -676,63 +710,64 @@
       { name: "504_പലരാം നമ്മൾ ക്രിസ്തുവിൽ.ppt", link: "https://docs.google.com/presentation/d/1N4qWZjBGCcKdl-V9GCPIxRwew4aLlc33/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
       { name: "Church Entrance Prayer.pptx", link: "https://docs.google.com/presentation/d/1MPcs3zmzv24czURBZOjAFTAqOQFn1K_y/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
       { name: "Doxologies.pptx", link: "https://docs.google.com/presentation/d/1loMxP6nvRzitDLSA2x5CCmgFvtrAeBKI/edit?usp=drivesdk&ouid=107787780402976419927&rtpof=true&sd=true" },
-    ];
+  ];
 
-    const fileList = document.getElementById("fileList");
-    const searchInput = document.getElementById("searchInput");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const pageInfo = document.getElementById("pageInfo");
+  const fileList = document.getElementById("fileList");
+  const searchInput = document.getElementById("searchInput");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const pageInfo = document.getElementById("pageInfo");
 
-    let currentPage = 1;
-    const itemsPerPage = 10;
-    let filteredFiles = [...files];
+  let currentPage = 1;
+  const itemsPerPage = 10;
+  let filteredFiles = [...files];
 
-    function renderFiles() {
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const pageItems = filteredFiles.slice(start, end);
+  function renderFiles() {
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = filteredFiles.slice(start, end);
 
-      fileList.innerHTML = "";
-      pageItems.forEach(file => {
-        const item = document.createElement("div");
-        item.className = "file-item";
-        item.innerHTML = `
-          <span class="file-name">${file.name}</span>
-          <span class="file-link"><a href="${file.link}" target="_blank">Open</a></span>
-        `;
-        fileList.appendChild(item);
-      });
+    fileList.innerHTML = "";
+    pageItems.forEach(file => {
+      const item = document.createElement("div");
+      item.className = "song-card";
+      item.innerHTML = `
+        <span class="song-title">🎵 ${file.name}</span>
+        <span class="song-link"><a href="${file.link}" target="_blank">Open</a></span>
+      `;
+      fileList.appendChild(item);
+    });
 
-      pageInfo.textContent = `Page ${currentPage} of ${Math.ceil(filteredFiles.length / itemsPerPage)}`;
-      prevBtn.disabled = currentPage === 1;
-      nextBtn.disabled = currentPage === Math.ceil(filteredFiles.length / itemsPerPage);
-    }
+    const totalPages = Math.ceil(filteredFiles.length / itemsPerPage);
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+  }
 
-    function updateSearch() {
-      const query = searchInput.value.toLowerCase();
-      filteredFiles = files.filter(file => file.name.toLowerCase().includes(query));
-      currentPage = 1;
+  function updateSearch() {
+    const query = searchInput.value.toLowerCase();
+    filteredFiles = files.filter(file => file.name.toLowerCase().includes(query));
+    currentPage = 1;
+    renderFiles();
+  }
+
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
       renderFiles();
     }
+  });
 
-    prevBtn.addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderFiles();
-      }
-    });
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < Math.ceil(filteredFiles.length / itemsPerPage)) {
+      currentPage++;
+      renderFiles();
+    }
+  });
 
-    nextBtn.addEventListener("click", () => {
-      if (currentPage < Math.ceil(filteredFiles.length / itemsPerPage)) {
-        currentPage++;
-        renderFiles();
-      }
-    });
+  searchInput.addEventListener("input", updateSearch);
+  renderFiles();
+</script>
 
-    searchInput.addEventListener("input", updateSearch);
-
-    renderFiles();
-  </script>
 </body>
 </html>
