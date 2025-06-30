@@ -69,8 +69,8 @@
     }
 
     .search-input {
-      max-width: 500px;
-      margin: 2rem auto;
+      margin-bottom: 2rem;
+      width: 100%;
     }
 
     .song-card {
@@ -171,9 +171,11 @@
   <div class="main-card">
 
     <!-- SEARCH BAR -->
-    <div class="search-input text-center">
-      <input type="text" id="searchInput" class="form-control" placeholder="Search by song title..." />
-    </div>
+    <!-- SEARCH BAR -->
+<div class="search-input">
+  <input type="text" id="searchInput" class="form-control w-100" placeholder="Search by song title..." />
+</div>
+
 
     <!-- SONG LIST -->
     <div class="d-flex flex-column gap-3" id="fileList"></div>
